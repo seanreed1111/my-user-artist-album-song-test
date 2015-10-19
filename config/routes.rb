@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
-  resources :songs
-  resources :albums
-  resources :artists
-  resources :favorites
-  resources :users
+  
+  resources :users do
+
+    resources :artists do
+      resources :favorites
+      resources :albums do
+        resources :favorites
+        resources :songs do
+          resources :favorites
+        end
+      end
+    end
+  end
+
+  root 'users#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
